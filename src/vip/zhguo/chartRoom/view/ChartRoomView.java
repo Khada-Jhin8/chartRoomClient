@@ -1,8 +1,11 @@
 package vip.zhguo.chartRoom.view;
 
+import vip.zhguo.chartRoom.service.UserClientService;
+
 import java.util.Scanner;
 
 public class ChartRoomView {
+    UserClientService userClientService = new UserClientService();
     private boolean loop = true;
     Scanner in = new Scanner(System.in);
 
@@ -36,7 +39,7 @@ public class ChartRoomView {
     }
 
     public void login(String userId, String pwd) {
-        if (true) { // true变量需要根据服务器校验。
+        if (userClientService.cheackUser(userId,pwd)) { // true变量需要根据服务器校验。
             System.out.println("登陆成功");
             System.out.println("==========欢迎" + userId + "登陆到聊天室==========");
             while (loop) {
