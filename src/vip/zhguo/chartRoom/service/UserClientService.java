@@ -26,13 +26,13 @@ public class UserClientService {
         boolean flag = false;
         try {
             //建立链接，发送
-            Socket socket = new Socket("172.0.0.1", 9999);
+            Socket socket = new Socket("192.168.3.155", 9999);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(user);
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Message message = (Message) ois.readObject();
             //判断服务器验证数据是否成功，成功则开启一个线程与服务器保持链接。
-            if (message.getMessagerType() == MessageType.MESSAGE_LOGIN_SUCCESSD) {
+            if (message.getMessagerType().equals(MessageType.MESSAGE_LOGIN_SUCCESS) ) {
                 //创建与服务器保持连接的线程。
                 ClientSocketServerThread clientSocketServerThread = new ClientSocketServerThread(socket);
                 clientSocketServerThread.start();

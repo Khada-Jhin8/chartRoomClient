@@ -1,5 +1,6 @@
 package vip.zhguo.chartRoom.view;
 
+import vip.zhguo.chartRoom.service.Function;
 import vip.zhguo.chartRoom.service.UserClientService;
 
 import java.util.Scanner;
@@ -39,7 +40,7 @@ public class ChartRoomView {
     }
 
     public void login(String userId, String pwd) {
-        if (userClientService.cheackUser(userId,pwd)) { // true变量需要根据服务器校验。
+        if (userClientService.cheackUser(userId, pwd)) { // true变量需要根据服务器校验。
             System.out.println("登陆成功");
             System.out.println("==========欢迎" + userId + "登陆到聊天室==========");
             while (loop) {
@@ -53,7 +54,12 @@ public class ChartRoomView {
                 String getKey = in.next();
                 switch (getKey) {
                     case "1":
-                        System.out.println("显示用户在线列表");
+                        Function.getOnlineFriends(userId);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case "2":
                         System.out.println("群发消息");
