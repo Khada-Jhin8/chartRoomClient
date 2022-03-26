@@ -71,9 +71,9 @@ public class ChartRoomView {
                         System.out.println("发送文件");
                         break;
                     case "9":
-                        System.out.println("退出系统");
-                        this.loop = false;
-                        break;
+                        Function.exitSystem(userId);
+//                        this.loop = false;
+//                        break;
                 }
             }
         } else {
