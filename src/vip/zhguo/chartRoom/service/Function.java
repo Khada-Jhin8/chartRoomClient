@@ -5,6 +5,7 @@ import vip.zhguo.chartRoom.common.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 
 public class Function {
 
@@ -15,6 +16,23 @@ public class Function {
             Message message = new Message();
             message.setMessagerType(MessageType.MESSAGE_GET_ONLINE_FRIENDS);
             ObjectOutputStream oos = new ObjectOutputStream(ManageClientSocketServerThread.getCCST(uId).getSocket().getOutputStream());
+            oos.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void sendMessages(String sender, String getter, String content) {
+        Message message = new Message();
+        message.setMessagerType(MessageType.MESSAGE_COMMON_MSG);
+        message.setContent(content);
+        message.setSender(sender);
+        message.setGetter(getter);
+        message.setSendTime(new Date().toString());
+        System.out.println(sender + " 对 " + getter + " 说 " + content);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(ManageClientSocketServerThread.getCCST(sender).getSocket().getOutputStream());
             oos.writeObject(message);
         } catch (IOException e) {
             e.printStackTrace();

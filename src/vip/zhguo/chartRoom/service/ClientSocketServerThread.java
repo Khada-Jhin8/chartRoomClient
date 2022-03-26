@@ -6,6 +6,7 @@ import vip.zhguo.chartRoom.common.MessageType;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.Date;
 
 public class ClientSocketServerThread extends Thread {
     private Socket socket;
@@ -35,6 +36,9 @@ public class ClientSocketServerThread extends Thread {
                     for (String a : split) {
                         System.out.println("用户:" + a);
                     }
+                }else if (message.getMessagerType().equals(MessageType.MESSAGE_COMMON_MSG)){
+                    System.out.println();
+                    System.out.println(message.getSendTime() + ":<" + message.getSender() + "> 对 <" + message.getGetter() + "> 说：\"" + message.getContent() + "\"");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

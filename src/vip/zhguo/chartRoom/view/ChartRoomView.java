@@ -66,6 +66,11 @@ public class ChartRoomView {
                         break;
                     case "3":
                         System.out.println("私发消息");
+                        System.out.println("请输入接收消息的用户名");
+                        String getter = in.next();
+                        System.out.println("请输入要说的话");
+                        String content = in.next();
+                        Function.sendMessages(userId,getter,content);
                         break;
                     case "4":
                         System.out.println("发送文件");
