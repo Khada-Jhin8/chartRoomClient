@@ -56,24 +56,30 @@ public class ChartRoomView {
                     case "1":
                         Function.getOnlineFriends(userId);
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(100);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         break;
                     case "2":
-                        System.out.println("群发消息");
-                        break;
-                    case "3":
-                        System.out.println("私发消息");
-                        System.out.println("请输入接收消息的用户名");
-                        String getter = in.next();
                         System.out.println("请输入要说的话");
                         String content = in.next();
-                        Function.sendMessages(userId,getter,content);
+                        Function.sendMessageToAll(userId, content);
+                        break;
+                    case "3":
+                        System.out.println("请输入接收消息的用户名");
+                        String getter1 = in.next();
+                        System.out.println("请输入要说的话");
+                        String content1 = in.next();
+                        Function.sendMessages(userId, getter1, content1);
                         break;
                     case "4":
-                        System.out.println("发送文件");
+                        System.out.println("请输入接收消息的用户名");
+                        String getter2 = in.next();
+                        System.out.println("请输入要发送的文件路径（D:\\xx.jpg）");
+                        String filepath = in.next();
+                        Function.sendFile(userId,getter2,filepath);
+                        System.out.println("文件发送成功");
                         break;
                     case "9":
                         Function.exitSystem(userId);

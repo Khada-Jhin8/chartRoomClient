@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class UserClientService {
-
     private User user = new User();
 
     /**
@@ -46,4 +45,5 @@ public class UserClientService {
             return flag;
         }
     }
+
 }

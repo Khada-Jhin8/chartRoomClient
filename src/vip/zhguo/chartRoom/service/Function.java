@@ -3,8 +3,7 @@ package vip.zhguo.chartRoom.service;
 import vip.zhguo.chartRoom.common.Message;
 import vip.zhguo.chartRoom.common.MessageType;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.Date;
 
 public class Function {
@@ -23,6 +22,23 @@ public class Function {
 
     }
 
+    // 群发消息
+    public static void sendMessageToAll(String sender, String content) {
+        Message message = new Message();
+        message.setMessagerType(MessageType.MESSAGE_TO_ALL_MSG);
+        message.setContent(content);
+        message.setSender(sender);
+        message.setSendTime(new Date().toString());
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(ManageClientSocketServerThread.getCCST(sender).getSocket().getOutputStream());
+            oos.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // 发送普通消息
     public static void sendMessages(String sender, String getter, String content) {
         Message message = new Message();
         message.setMessagerType(MessageType.MESSAGE_COMMON_MSG);
@@ -33,6 +49,40 @@ public class Function {
         System.out.println(sender + " 对 " + getter + " 说 " + content);
         try {
             ObjectOutputStream oos = new ObjectOutputStream(ManageClientSocketServerThread.getCCST(sender).getSocket().getOutputStream());
+            oos.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // 4.发送文件
+    public static void sendFile(String uId, String getter, String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            System.out.println("文件不存在，发送中止！");
+        }
+        System.out.println(file.getName());
+        Message message = new Message();
+        message.setMessagerType(MessageType.MESSAGE_FILE_MSG);
+        message.setSender(uId);
+        message.setGetter(getter);
+        message.setSendTime(new Date().toString());
+        message.setFile(file);
+        //设置文件大小
+        byte[] fileSize = new byte[(int) file.length()];
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(fileSize);
+            if (fileInputStream != null)
+                fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        message.setFiledata(fileSize);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(ManageClientSocketServerThread.getCCST(uId).getSocket().getOutputStream());
             oos.writeObject(message);
         } catch (IOException e) {
             e.printStackTrace();
