@@ -43,6 +43,8 @@ public class ChartRoomView {
         if (userClientService.cheackUser(userId, pwd)) { // true变量需要根据服务器校验。
             System.out.println("登陆成功");
             System.out.println("==========欢迎" + userId + "登陆到聊天室==========");
+            //获取离线消息
+            Function.getOffLineMessages(userId);
             while (loop) {
                 System.out.println("==========聊天室二级菜单(" + userId + ")==========");
                 System.out.print("\t 1.显示在线用户列表");

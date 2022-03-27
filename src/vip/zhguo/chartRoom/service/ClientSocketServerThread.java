@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class ClientSocketServerThread extends Thread {
@@ -68,6 +69,14 @@ public class ClientSocketServerThread extends Thread {
 //                } else {
 //                    System.out.println("文件被你拒收");
 //                }
+                } else if (message.getMessagerType().equals(MessageType.MESSAGE_GET_OFFLINE_MSG)){
+                    System.out.println();
+                    List<Message> offLineMsgs = message.getOffLineMsgs();
+                    for (Message msg: offLineMsgs
+                         ) {
+                        System.out.println(msg.getSendTime() + ":<" + msg.getSender() + "> 对 <" + msg.getGetter() + "> 说：\"" + msg.getContent() + "\"");
+                    }
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

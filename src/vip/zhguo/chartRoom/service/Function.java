@@ -90,6 +90,22 @@ public class Function {
 
     }
 
+    // 获取离线消息
+    public static void getOffLineMessages(String uId){
+        Message message = new Message();
+        message.setMessagerType(MessageType.MESSAGE_GET_OFFLINE_MSG);
+        message.setSender(uId);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(ManageClientSocketServerThread.getCCST(uId)
+                    .getSocket()
+                    .getOutputStream());
+            oos.writeObject(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     // 9.退出系统
     public static void exitSystem(String uId) {
         try {
